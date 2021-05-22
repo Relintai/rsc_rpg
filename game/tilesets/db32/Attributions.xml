@@ -1,0 +1,93 @@
+<Attributions>
+<Module>
+<Name>Tileset</Name>
+<URL></URL>
+<Description></Description>
+<Licenses>
+CC0
+</Licenses>
+</Module>
+
+<Attribution>
+<Name>
+RogueDB32
+</Name>
+<URL>https://opengameart.org/content/roguedb32</URL>
+<Description>
+Tileset suitable for a "Roguelike" game or whatever you like.  Uses db32 palette, most are 8x8.
+
+A few things to note:
+
+* The gui box is made to be drawn using a rectangle on top of a filled rectangle, and the tiles drawn on the corners.  This way you can size it however you like.  I suggest you just save one 16x16 image for the corner and just rotate it to fit.
+
+* The fonts are not monospace, and some are the same height.  I included different versions of the font to allow for personal preference.  The way I recommend using the fonts is take the largest font for capitals, and smallest for lowercase.  Draw a shadow color version of it behind and 1 pixel to the left, then another 1 pixel below that one.  See the text "Test" in the font section for example.
+
+* I realize there isn't a lot of variety in items, monsters, settings, but hopefully you can get creative (palette swap the stone background for grass, etc.
+
+ 
+
+UPDATE: Also check out this add-on: http://opengameart.org/content/roguedb32-plus-add-on-tiles
+Copyright/Attribution Notice: 
+No attribution required. If you want to credit me anyway, credit me as "SpiderDave", and maybe link to this page or whatever you like.
+
+My website(blog): http://dustychest.blogspot.com/
+
+SpiderDave
+</Description>
+<Licenses>
+CCO
+</Licenses>
+<Files>
+rogue_db32_spiderdave_1.png
+</Files>
+</Attribution>
+
+<Attribution>
+<Name>RogueDB32 Plus - add on tiles</Name>
+<URL>https://opengameart.org/content/roguedb32-plus-add-on-tiles</URL>
+<Description>
+Add on tileset suitable for a roguelike game or whatever you like. Uses db32 palette and 8x8 images. I thank the original contributor, SpiderDave, for the submission that gave me the inspiration to make these. Some are adaptations of his work and some are new content. They are released to the public domain to reflect the original license and in the hope that others will add their own free content and upload it here.
+
+FAQ:
+
+* "This is cool, but I want a GUI." There's a simple but effective one already in the original file this is an add on to. Please download that.
+
+* "What about fonts?" There are more font variations than you can shake a stick at in the original file.
+
+* "Many of these graphics are just a color swap of each other!" Some are. But some are variations to reflect level and ability changes. It's CC0, so use as much or as little as you want. You'll probably drop some. I like the LD ghosts below and the original skeletons better, for example.
+
+* "Almost none of these could be used for player characters." You're correct. See the original file, or adapt one of the others below.
+
+* "The graphics should have a shadow." They're 8x8 tiles, so a shadow wouldn't fit, really. (For comparison purposes, a lot of tilesets for roguelikes are 16x16 or 24x24 or larger. That would be four or nine or more of these graphics put together.) You can control that by picking foreground and background tiles that have enough contrast, or by making character/object tiles 10x10 with a dark pixel on the edges but set to overlap the 8x8 background tiles. If you are going to blow theses graphics up larger before use (preservng the low resolution look while still seeing the detail on a new monitor) you might make one normal pixel equal to maybe four new pixels and then add a one pixel shadow. Or whatever you decide.
+
+* "Couldn't many of these graphics be used for a platformer or other game?" Sure. Do what you like.
+
+* "I want more!" Great. I will try to link files here as appropriate, but if anyone else wants to make a collection or page they can certainly do so. Here's what I have:
+
+The original RogueDB32: http://opengameart.org/content/roguedb32
+
+Lucid Design has 8x8 roguelike pages on this site, but with different colors and an OGA license: http://opengameart.org/content/rogue-dungeon and http://opengameart.org/content/roguelite
+
+Kenney has a set a 8x8 roguelike as well (in addition to other sizes and a million other great downloads with free game art): https://opengameart.org/content/micro-roguelike
+
+Plus there's add on for that set made by morgan3d: https://opengameart.org/content/mini-roguelike-8x8-tiles
+
+There's a collections page for 8x8 rogues assets here, but keep in mind that the rest are different colors, often different licenses, and many times not actually 8x8 tiles. They might prove useful, though: http://opengameart.org/content/8x8cc0oga-byroguelike
+
+(Note: If you favorite or download this file please do both to the original RogueDB32 file, as this submission doesn't copy what that file already has unless there was a change made.)
+
+ 
+Copyright/Attribution Notice: 
+No attribution required. Totally free! If you want to credit this anyway, you can thank "SpiderDave" for the original tiles and "Dan Norder" for extra content. Links to this page or the original file or both are also a possibility.
+
+by dannorder
+</Description>
+<Licenses>
+CCO
+</Licenses>
+<Files>
+rogue db32 plus - cc0.png
+</Files>
+</Attribution>
+
+</Attributions>
