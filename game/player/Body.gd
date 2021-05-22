@@ -85,6 +85,9 @@ var character_skeleton : CharacterSkeleton2D
 
 var visibility_update_timer : float = 0
 
+var touches : Array = Array()
+var touch_zoom : bool = false
+
 func _enter_tree() -> void:
 	world = get_node(world_path) as Node2D
 	camera = get_node_or_null("Camera") as Camera2D
@@ -102,6 +105,7 @@ func _enter_tree() -> void:
 	transform = entity.get_transform_2d(true)
 
 	set_physics_process(true)
+
 
 func _process(delta : float) -> void:
 	if entity.ai_state == EntityEnums.AI_STATE_OFF:
@@ -320,6 +324,10 @@ func _input(event: InputEvent) -> void:
 		get_tree().set_input_as_handled()
 		
 func _unhandled_input(event: InputEvent) -> void:
+	if !entity.c_is_controlled:
+		return 
+		
+	
 	if event is InputEventKey:
 		var ievkey : InputEventKey = event as InputEventKey
 		
@@ -334,9 +342,31 @@ func _unhandled_input(event: InputEvent) -> void:
 			
 	if event is InputEventMouseMotion and not (mouse_right_down or mouse_left_down) and event.device != -1:
 		cmouseover(event)
+		get_tree().set_input_as_handled()
 
 	if event is InputEventMouseButton:
-		if event.button_index == BUTTON_LEFT and event.device != -1:
+		if event.button_index == BUTTON_WHEEL_DOWN and event.device != -1:
+			if camera == null:
+				return
+				
+			get_tree().set_input_as_handled()
+			
+			if camera.zoom.x >= 2:
+				return
+			else:
+				camera.zoom += Vector2(event.factor, event.factor) * 0.01
+		elif event.button_index == BUTTON_WHEEL_UP and event.device != -1:
+			if camera == null:
+				return
+				
+			get_tree().set_input_as_handled()
+				
+			if camera.zoom.x <= 0.1:
+				return
+			else:
+				camera.zoom -= Vector2(event.factor, event.factor) * 0.01
+		
+		elif event.button_index == BUTTON_LEFT and event.device != -1:
 			mouse_left_down = event.pressed
 			
 			if mouse_left_down:
@@ -358,13 +388,84 @@ func _unhandled_input(event: InputEvent) -> void:
 			target(event.position)
 				
 			
-	if event is InputEventScreenTouch and event.pressed:
-		target(event.position)
-			
 	if event is InputEventMouseMotion and mouse_left_down and event.device != -1:
 		mouse_dir = (event.position - get_viewport_rect().size / 2).normalized()
 			
 	#update_cursor_mode()
+
+#	if event is InputEventScreenTouch and event.pressed:
+#		target(event.position)
+			
+
+	if event is InputEventScreenTouch:
+		if event.pressed:
+			var touch : Array = [
+				event.index,
+				event.position,
+			]
+			
+			touches.append(touch)
+			
+			if touches.size() > 1:
+				touch_zoom = true
+		else:
+			if !touch_zoom:
+				target(event.position)
+
+			for i in range(touches.size()):
+				if touches[i][0] == event.index:
+					touches.remove(i)
+					break
+					
+			if touch_zoom and touches.size() == 0:
+				touch_zoom = false
+				
+		get_tree().set_input_as_handled()
+		
+	if event is InputEventScreenDrag && touches.size() == 2:
+		if camera == null:
+			return
+			
+		var found : bool = false
+		for t in touches:
+			if event.index == t[0]:
+				found = true
+				break
+				
+		if !found:
+			return
+			
+		var otp : Vector2
+		var ttp : Vector2
+		
+		if touches[0][0] == event.index:
+			otp = touches[1][1]
+			ttp = touches[0][1]
+		else:
+			otp = touches[0][1]
+			ttp = touches[1][1]
+			
+		var olen : float =  (otp - ttp).length()
+		var currlen : float = (otp - event.position).length()
+			
+		
+		if olen > currlen:
+			if camera.zoom.x >= 2:
+				return
+			else:
+				var l : float = event.relative.length()
+				camera.zoom += Vector2(l, l) * 0.01 * 72 / OS.get_screen_dpi()
+		else:
+			if camera.zoom.x <= 0.1:
+				return
+			else:
+				var l : float = event.relative.length()
+				camera.zoom -= Vector2(l, l) * 0.01 * 72 / OS.get_screen_dpi()
+		
+
+		get_tree().set_input_as_handled()
+			
+			
 
 			
 func update_cursor_mode():
@@ -473,7 +574,7 @@ func on_c_controlled_changed(val):
 	
 	if val:
 		camera = Camera2D.new()
-		camera.zoom = Vector2(0.8, 0.8)
+		camera.zoom = Vector2(0.35, 0.35)
 		add_child(camera)
 		camera.current = true
 
