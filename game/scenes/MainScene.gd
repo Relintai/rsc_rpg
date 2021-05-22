@@ -27,6 +27,10 @@ export(PackedScene) var world_scene : PackedScene
 export(PackedScene) var debug_camera_scene : PackedScene
 export(NodePath) var loading_screen_path : NodePath
 
+export(Vector2) var world_scale : Vector2
+export(Array, PackedScene) var bodies : Array
+export(int) var tile_size : int
+
 enum StartSceneTypes {
 	NONE, MENU, WORLD
 }
@@ -108,3 +112,14 @@ func show_loading_screen() -> void:
 func hide_loading_screen() -> void:
 	_loading_screen.hide()
 	
+func get_world():
+	return world_scene
+
+func get_world_scale():
+	return world_scale
+	
+func get_body():
+	return bodies[randi() % bodies.size()]
+	
+func get_tile_size():
+	return tile_size
