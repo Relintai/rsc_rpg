@@ -453,8 +453,8 @@ Node="input/actionbar_5_11"
 
 [application]
 
-config/name="Broken Seals 2D"
-config/description="An open source third person RPG "
+config/name="rscs_rpg"
+config/description="A simple  open source 2D rpg. "
 run/main_scene="res://scenes/Main.tscn"
 config/icon="res://icon.png"
 config/version="0.2"
