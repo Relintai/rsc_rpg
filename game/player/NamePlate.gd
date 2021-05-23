@@ -84,7 +84,7 @@ func _process(delta):
 	var position : Vector2 = entity.get_body().position
 	
 	position.x -= (rect_size.x / 2.0) * rect_scale.x
-	position.y -= 60
+	position.y -= 15
 	
 	set_position(position)
 	

@@ -18,7 +18,9 @@ __meta__ = {
 health_bar_path = NodePath("MarginContainer/TextureProgress")
 health_bar_label_path = NodePath("MarginContainer/CenterContainer/Label")
 normal_color = Color( 0.74902, 0.74902, 0.74902, 1 )
-mouseover_scale = Vector2( 0.75, 0.75 )
+normal_scale = Vector2( 0.35, 0.35 )
+mouseover_scale = Vector2( 0.35, 0.35 )
+targeted_scale = Vector2( 0.45, 0.45 )
 
 [node name="Name" type="Label" parent="."]
 margin_right = 62.0
