@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/World.gd" type="Script" id=1]
 [ext_resource path="res://tilesets/Terrarin.tscn" type="PackedScene" id=3]
+
+[sub_resource type="Environment" id=1]
 
 [node name="World" type="Node2D" groups=[
 "save",
@@ -10,3 +12,6 @@ script = ExtResource( 1 )
 level_paths = [ NodePath("Terrarin") ]
 
 [node name="Terrarin" parent="." instance=ExtResource( 3 )]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 1 )
