@@ -631,15 +631,24 @@ limits/message_queue/max_size_kb=2048
 
 [physics]
 
+3d/active_soft_world=false
 2d/default_gravity=0
 
 [rendering]
 
 quality/driver/driver_name="GLES2"
 quality/driver/fallback_to_gles2=true
+quality/intended_usage/framebuffer_allocation=0
+quality/intended_usage/framebuffer_allocation.mobile=0
 vram_compression/import_etc=true
+quality/directional_shadow/size=1024
 quality/directional_shadow/size.mobile=1024
+quality/shadow_atlas/size=1024
+quality/shadow_atlas/size.mobile=1024
+quality/reflections/texture_array_reflections=false
+quality/reflections/high_quality_ggx=false
 quality/shading/force_vertex_shading=true
+quality/depth_prepass/enable=false
 environment/default_clear_color=Color( 0, 0, 0, 1 )
 quality/2d/use_batching=true
 quality/shadows/enabled=false
