@@ -33,7 +33,7 @@ var _editor_generate : bool
 
 var _player : Entity
 
-enum Tile { Floor, Wall, Door, Ladder, Stone }
+enum Tile { Floor = 19, Wall = 13, Door = 15, Ladder = 14, Stone = 13 }
 
 var tile_size : int = 32
 export(Vector2) var level_size : Vector2 = Vector2(40, 40)
@@ -54,7 +54,8 @@ onready var tile_map : TileMap = $Terrarin
 onready var visibility_map : TileMap = $VisibilityMap
 
 func _ready():
-	tile_size = get_node("/root/Main").get_tile_size()
+#	tile_size = get_node("/root/Main").get_tile_size()
+	tile_size = 8
 	connect("visibility_changed", self, "on_visibility_changed")
 
 func place_player(player: Entity) -> void:
