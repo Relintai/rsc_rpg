@@ -33,7 +33,7 @@ var _editor_generate : bool
 
 var _player : Entity
 
-enum Tile { Floor = 19, Wall = 13, Door = 15, Ladder = 14, Stone = 13 }
+enum Tile { Floor = 12, Wall = 13, Door = 15, Ladder = 14, Stone = 13 }
 
 var tile_size : int = 32
 export(Vector2) var level_size : Vector2 = Vector2(40, 40)
