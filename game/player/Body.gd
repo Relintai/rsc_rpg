@@ -88,6 +88,8 @@ var visibility_update_timer : float = 0
 var touches : Array = Array()
 var touch_zoom : bool = false
 
+var tile_size : int = 8
+
 func _enter_tree() -> void:
 	world = get_node(world_path) as Node2D
 	camera = get_node_or_null("Camera") as Camera2D
@@ -137,7 +139,7 @@ func _physics_process(delta : float) -> void:
 	if not _on:
 		return
 		
-	if world.initial_generation:
+	if not world:
 		return
 		
 	if entity.sentity_data == null:
@@ -609,4 +611,5 @@ remote func sset_position(pposition : Vector2) -> void:
 remote func cset_position(pposition : Vector2) -> void:
 	pposition = pposition
 		
-		
+func get_tile_position() -> Vector2:
+	return Vector2(int(transform.origin.x / tile_size), int(transform.origin.y / tile_size))

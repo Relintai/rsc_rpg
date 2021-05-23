@@ -20,81 +20,66 @@ extends Node2D
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-export(PackedScene) var world_layer : PackedScene
-
-export(bool) var spawn_mobs : bool = true
-export(bool) var editor_generate : bool = false setget set_editor_generate, get_editor_generate
-export(bool) var show_loading_screen : bool = true
-export(bool) var generate_on_ready : bool = false
-
-var initial_generation : bool = false
-
-var _editor_generate : bool
+export(Array, NodePath) var level_paths : Array
+var levels : Array
+var current_level : int = -1
 
 var _player_file_name : String
 var _player : Entity
 
 func _ready():
-#	print(get_layer(2))
-	pass # Replace with function body.
+	for lp in level_paths:
+		var l = get_node(lp)
+		
+		if l.visible:
+			l.hide()
+			
+		levels.append(l)
+		
+func _unhandled_key_input(event):
+	if event.scancode == KEY_M and event.pressed:
+		var l : int = current_level + 1
 
-func get_layer(index : int) -> Navigation2D:
-	for ch in get_children():
-		if ch.has_method('collision_layer') and ch.collision_layer() == index:
-			return ch
+		if l >= levels.size():
+			l = 0
+		
+		switch_to_level(l)
 
-	var wl : Navigation2D = world_layer.instance() as Navigation2D
-	add_child(wl)
-	wl.collision_layer = index
+
+func switch_to_level(level_index : int):
+	_player.get_body().hide()
 	
-	return wl
+	if current_level != -1:
+		levels[current_level].hide()
+		
+	current_level = level_index
+	
+	levels[current_level].show()
+	
+	if _player.get_parent():
+		_player.get_parent().place_player(null)
+		_player.get_parent().remove_child(_player)
+	
+	levels[current_level].add_child(_player)
+	levels[current_level].place_player(_player)
+#	_player.get_body().world = levels[current_level]
+	_player.get_body().show()
+
 
 func load_character(file_name: String) -> void:
 	_player_file_name = file_name
 	_player = ESS.entity_spawner.load_player(file_name, Vector3(5, 5, 0), 1) as Entity
-	#TODO hack, do this properly
-#	_player.set_physics_process(false)
+	_player.get_body().hide()
 	
 	Server.sset_seed(_player.sseed)
 	
-	if spawn_mobs:
-		generate()
-	
-	
-
-
-func generate() -> void:
-	for x in range(-5, 5):
-		for y in range(-5, 5):
-			ESS.entity_spawner.spawn_mob(1, 50, Vector3(x * 200, y * 200, 0))
+	call_deferred("switch_to_level", 0)
 
 func save() -> void:
 	if _player == null or _player_file_name == "":
 		return
 
 	ESS.entity_spawner.save_player(_player, _player_file_name)
-	
-func _generation_finished():
 
-	if show_loading_screen and not Engine.editor_hint:
-		get_node("..").hide_loading_screen()
-		
-#	if _player:
-#		_player.set_physics_process(true)
-
-func get_editor_generate() -> bool:
-	return _editor_generate
-	
-func set_editor_generate(value : bool) -> void:
-	if value:
-		#library.refresh_rects()
-		
-		#level_generator.setup(self, current_seed, false, library)
-		#spawn()
-		pass
-	else:
-		#spawned = false
-		#clear()
-		pass
-		
-	_editor_generate = value
+func place_player(player: Entity) -> void:
+	return
