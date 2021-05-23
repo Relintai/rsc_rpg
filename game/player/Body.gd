@@ -63,6 +63,7 @@ var total_down_mouse_delta : Vector2 = Vector2()
 var target_movement_direction : Vector2 = Vector2()
 
 var camera : Camera2D
+var ui : Node 
 
 var animation_run : bool = false
 
@@ -92,7 +93,6 @@ var tile_size : int = 8
 
 func _enter_tree() -> void:
 	world = get_node(world_path) as Node2D
-	camera = get_node_or_null("Camera") as Camera2D
 	
 	character_skeleton = get_node(character_skeleton_path)
 	entity = get_node("..")
@@ -575,23 +575,27 @@ func on_c_controlled_changed(val):
 	_controlled = val
 	
 	if val:
-		camera = Camera2D.new()
+		if !camera:
+			camera = Camera2D.new()
+			add_child(camera)
+			
 		camera.zoom = Vector2(0.35, 0.35)
-		add_child(camera)
 		camera.current = true
-
-		#var uiscn : PackedScene = ResourceLoader.load("res://ui/player_ui/player_ui.tscn")
-		#var ui = uiscn.instance()
-		#add_child(ui)
-		var ui = DataManager.request_instance(DataManager.PLAYER_UI_INSTANCE)
-		add_child(ui)
 		
+		if !ui:
+			ui = DataManager.request_instance(DataManager.PLAYER_UI_INSTANCE)
+			add_child(ui)
+
 		set_process_input(true)
 		set_process_unhandled_input(true)
 	else:
 		if camera:
 			camera.queue_free()
 			camera = null
+			
+		if ui:
+			ui.queue_free()
+			ui = null
 			
 		set_process_input(false)
 		set_process_unhandled_input(false)
